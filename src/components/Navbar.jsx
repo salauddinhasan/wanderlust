@@ -22,6 +22,11 @@ const Navbar = () => {
             My Bookings
           </li>
         </Link>
+        <Link href="/add-destination">
+          <li className="text-gray-600 hover:text-cyan-600 cursor-pointer font-medium transition-colors duration-200 list-none">
+            Add Destination
+          </li>
+        </Link>
       </ul>
 
       {/* Center - Logo */}
