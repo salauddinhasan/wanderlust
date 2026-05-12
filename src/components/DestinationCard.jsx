@@ -1,5 +1,6 @@
 import { Button } from "@heroui/react";
 import Image from "next/image";
+import Link from "next/link";
 import React from "react";
 import { CiLocationOn } from "react-icons/ci";
 import { IoCalendarNumberSharp } from "react-icons/io5";
@@ -7,6 +8,7 @@ import { TbCalendarRepeat } from "react-icons/tb";
 
 const DestinationCard = ({ destination }) => {
   const {
+    _id,
     destinationName,
     country,
     duration,
@@ -61,9 +63,11 @@ const DestinationCard = ({ destination }) => {
         </div>
 
         {/* Button */}
-        <Button className="w-full bg-gradient-to-r  text-white font-semibold rounded-xl mt-1 hover:opacity-90 transition-opacity">
-          Book Now
-        </Button>
+        <Link href={`/destinations/${_id}`}>
+          <Button className="w-full bg-gradient-to-r  text-white font-semibold rounded-xl mt-1 hover:opacity-90 transition-opacity">
+            Book Now
+          </Button>
+        </Link>
       </div>
     </div>
   );

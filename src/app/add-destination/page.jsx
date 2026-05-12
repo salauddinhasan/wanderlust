@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import React from "react";
 import {
   Button,
@@ -11,32 +11,34 @@ import {
   TextArea,
   TextField,
 } from "@heroui/react";
+import { redirect } from "next/navigation";
+ 
+ 
 
 const AddDestinationPage = () => {
   const isPending = false;
   const onSubmit = async (e) => {
-    e.preventDefault()
-    const formData = new FormData(e.currentTarget)
-   
-    const destination = Object.fromEntries(formData.entries())
-    console.log(destination)
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
 
-    const res = await fetch('http://localhost:5000/destination', {
-      method: 'POST',
+    const destination = Object.fromEntries(formData.entries());
+
+    const res = await fetch("http://localhost:5000/destination", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json'
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(destination)
+      body: JSON.stringify(destination),
     });
-    const data = await res.json()
-    alert('add data succssfull')
-  }
+    const data = await res.json();
+
+    alert("Destination added successfully!");
+    redirect("/destinations");
+  };
 
   return (
-    <div className="w-xl mx-auto p-5 shadow-xl " >
-      <form
-       onSubmit={onSubmit} 
-       className="p-10 space-y-8 ">
+    <div className="w-xl mx-auto p-5 shadow-xl ">
+      <form onSubmit={onSubmit} className="p-10 space-y-8 ">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Destination Name */}
           <div className="md:col-span-2">
