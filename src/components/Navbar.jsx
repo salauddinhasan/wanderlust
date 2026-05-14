@@ -1,32 +1,57 @@
+"use client";
+import { authClient } from "@/lib/auth-client";
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 const Navbar = () => {
+  const router = useRouter();
+
+  const { data: session } = authClient.useSession();
+  const user = session?.user;
+
+  const handleLogout = async () => {
+    await authClient.signOut();
+    router.push("/login");
+  };
+
   return (
     <nav className="flex justify-between items-center px-8 py-4 border-b border-gray-100 bg-white shadow-sm">
       {/* Left - Nav Links */}
-      <ul className="flex items-center gap-6">
-        <Link href="/">
-          <li className="text-gray-600 hover:text-cyan-600 cursor-pointer font-medium transition-colors duration-200 list-none">
+      <ul className="flex items-center gap-6 list-none">
+        <li>
+          <Link
+            href="/"
+            className="text-gray-600 hover:text-cyan-600 font-medium transition-colors duration-200"
+          >
             Home
-          </li>
-        </Link>
-        <Link href="/destinations">
-          <li className="text-gray-600 hover:text-cyan-600 cursor-pointer font-medium transition-colors duration-200 list-none">
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/destinations"
+            className="text-gray-600 hover:text-cyan-600 font-medium transition-colors duration-200"
+          >
             Destinations
-          </li>
-        </Link>
-        <Link href="/bookings">
-          <li className="text-gray-600 hover:text-cyan-600 cursor-pointer font-medium transition-colors duration-200 list-none">
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/my-bookings"
+            className="text-gray-600 hover:text-cyan-600 font-medium transition-colors duration-200"
+          >
             My Bookings
-          </li>
-        </Link>
-        <Link href="/add-destination">
-          <li className="text-gray-600 hover:text-cyan-600 cursor-pointer font-medium transition-colors duration-200 list-none">
+          </Link>
+        </li>
+        <li>
+          <Link
+            href="/add-destination"
+            className="text-gray-600 hover:text-cyan-600 font-medium transition-colors duration-200"
+          >
             Add Destination
-          </li>
-        </Link>
+          </Link>
+        </li>
       </ul>
 
       {/* Center - Logo */}
@@ -36,27 +61,55 @@ const Navbar = () => {
           height={150}
           width={150}
           alt="Wanderlust Logo"
-          className="  w-auto object-contain"
+          className="w-auto object-contain"
         />
       </div>
 
       {/* Right - Auth Links */}
-      <ul className="flex items-center gap-4">
-        <Link href="/profile">
-          <li className="text-gray-600 hover:text-cyan-600 cursor-pointer font-medium transition-colors duration-200 list-none">
+      <ul className="flex items-center gap-4 list-none">
+        <li>
+          <Link
+            href="/profile"
+            className="text-gray-600 hover:text-cyan-600 font-medium transition-colors duration-200"
+          >
             Profile
-          </li>
-        </Link>
-        <Link href="/login">
-          <li className="text-gray-600 hover:text-cyan-600 cursor-pointer font-medium transition-colors duration-200 list-none">
-            Login
-          </li>
-        </Link>
-        <Link href="/signup">
-          <li className="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-full cursor-pointer font-medium transition-colors duration-200 list-none">
-            Sign Up
-          </li>
-        </Link>
+          </Link>
+        </li>
+
+        <div className="flex items-center gap-4">
+          {user ? (
+            <>
+              <div className="flex items-center gap-2">
+                <img
+                  src={user.image || "/assets/default-avatar.png"} // ✅ photoURL → image
+                  className="w-10 h-10 rounded-full border object-cover"
+                  alt="user"
+                />
+                {/* <span className="font-medium">{user.name}</span>{" "} */}
+                <button
+                  onClick={handleLogout}
+                  className="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-full transition-colors duration-200"
+                >
+                  Logout
+                </button>
+                {/* ✅ displayName → name */}
+              </div>
+            </>
+          ) : (
+            <>
+              <Link href="/login" className="text-gray-600 hover:text-cyan-600">
+                Login
+              </Link>
+
+              <Link
+                href="/signup"
+                className="bg-cyan-500 hover:bg-cyan-600 text-white px-4 py-2 rounded-full transition-colors duration-200"
+              >
+                Sign Up
+              </Link>
+            </>
+          )}
+        </div>
       </ul>
     </nav>
   );

@@ -6,6 +6,7 @@ import { MdOutlineAttachMoney } from "react-icons/md";
 import { HiOutlineUserGroup } from "react-icons/hi";
 import { EditModal } from "@/components/EditModal";
 import { DeleteAlert } from "@/components/DeleteAlert";
+import BookingCard from "@/components/BookingCard";
 
 const DestinationDetailsPage = async ({ params }) => {
   const { id } = await params;
@@ -96,17 +97,8 @@ const DestinationDetailsPage = async ({ params }) => {
         </div>
 
         {/* Book Box */}
-        <div className="w-full md:w-64 bg-gradient-to-br from-cyan-500 to-purple-500 rounded-2xl p-6 text-white flex flex-col gap-4 shadow-lg">
-          <h3 className="text-xl font-bold">Ready to Go?</h3>
-          <p className="text-sm text-white/80">
-            Book your trip now and create unforgettable memories!
-          </p>
-          <div className="text-3xl font-black">
-            ${price} <span className="text-sm font-normal">/person</span>
-          </div>
-          <button className="w-full bg-white text-cyan-500 font-bold py-3 rounded-xl hover:bg-white/90 transition-all">
-            Book Now
-          </button>
+        <div>
+          <BookingCard destination={destination}/>
         </div>
       </div>
     </div>
