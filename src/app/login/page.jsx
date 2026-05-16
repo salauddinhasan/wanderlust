@@ -94,7 +94,7 @@ const LoginPage = () => {
         </div>
 
         <div className="flex items-center justify-center">
-          <button onSubmit={handleGoogleLogin} className="flex items-center gap-2 border border-gray-300 hover:border-gray-400 hover:bg-gray-50 text-gray-700 font-medium px-6 py-2.5 rounded-full transition-all duration-200">
+          <button onClick={handleGoogleLogin} className="flex items-center gap-2 border border-gray-300 hover:border-gray-400 hover:bg-gray-50 text-gray-700 font-medium px-6 py-2.5 rounded-full transition-all duration-200">
             <FaGoogle className="text-red-500" />
             Continue with Google
           </button>

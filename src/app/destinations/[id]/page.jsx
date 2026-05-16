@@ -7,11 +7,21 @@ import { HiOutlineUserGroup } from "react-icons/hi";
 import { EditModal } from "@/components/EditModal";
 import { DeleteAlert } from "@/components/DeleteAlert";
 import BookingCard from "@/components/BookingCard";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 
 const DestinationDetailsPage = async ({ params }) => {
   const { id } = await params;
+  const { token } = await auth.api.getToken({
+    headers: await headers(),
+  });
 
-  const res = await fetch(`http://localhost:5000/destination/${id}`);
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/destination/${id}`, {
+    headers: {
+      authorization: `Bearer ${token}`,
+      // authorization: 'logged in'
+    },
+  });
   const destination = await res.json();
   const {
     destinationName,
@@ -39,7 +49,7 @@ const DestinationDetailsPage = async ({ params }) => {
           className="object-cover"
           alt={destinationName}
         />
-        {/* Overlay */}
+        
         <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
 
         {/* Overlay Text */}
@@ -98,7 +108,7 @@ const DestinationDetailsPage = async ({ params }) => {
 
         {/* Book Box */}
         <div>
-          <BookingCard destination={destination}/>
+          <BookingCard destination={destination} />
         </div>
       </div>
     </div>

@@ -80,10 +80,12 @@ const Navbar = () => {
           {user ? (
             <>
               <div className="flex items-center gap-2">
-                <img
-                  src={user.image || "/assets/default-avatar.png"} // ✅ photoURL → image
-                  className="w-10 h-10 rounded-full border object-cover"
+                <Image
+                  src={user.image || "/assets/default-avatar.png"}  
+                  className=" rounded-full border object-cover"
                   alt="user"
+                  width={40}
+                  height={40}
                 />
                 {/* <span className="font-medium">{user.name}</span>{" "} */}
                 <button

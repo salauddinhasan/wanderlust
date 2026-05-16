@@ -23,8 +23,9 @@ const DestinationCard = ({ destination }) => {
       {/* Image */}
       <div className="relative overflow-hidden h-56">
         <Image
-          src={imageUrl}
+          src={imageUrl?.trim()}
           fill
+          sizes="100vw"
           className="object-cover group-hover:scale-110 transition-transform duration-500"
           alt={destinationName}
         />

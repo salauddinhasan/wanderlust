@@ -9,10 +9,16 @@ const MyBookingPage = async () => {
     headers: await headers(),
   });
 
+  const { token } = await auth.api.getToken({
+      headers: await headers(),
+    });
+
   const user = session?.user;
 
-  const res = await fetch(`http://localhost:5000/booking/${user?.id}`, {
-    cache: "no-store",
+  const res = await fetch(`${process.env.NEXT_PUBLIC_URL}/booking/${user?.id}`,  {
+     headers: {
+      authorization: `Bearer ${token}`
+     }
   });
 
   const bookings = await res.json();
@@ -29,7 +35,7 @@ const MyBookingPage = async () => {
             key={booking._id}
             className="border rounded-2xl p-4 flex flex-col md:flex-row gap-5 shadow-sm"
           >
-            <img
+            <Image
               src={booking.imageUrl}
               alt={booking.destinationName}
               width={250}
